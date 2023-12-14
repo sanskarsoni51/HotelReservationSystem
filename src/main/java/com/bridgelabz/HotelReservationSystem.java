@@ -4,6 +4,8 @@ import java.text.ParseException;
 
 import java.util.*;
 
+import static java.lang.Math.min;
+
 public class HotelReservationSystem {
     public static void main(String[] args) throws ParseException {
         final int CheapestHotels = 1;
@@ -65,6 +67,29 @@ public class HotelReservationSystem {
                 }
 
             case CheapestBestRated:
+                int week_end = 0;
+                int r;
+                for (int i = 0; i < noOfDays; i++) {
+                    dateInput = s.nextLine();
+                    // Parsing the user input date string and checking if it's a weekend
+                    boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
+                    if(weekEnd) week_end++;
+                }
+                int min = 0;
+                String htel = "";
+                for (Hotels hotel:hotelList) {
+
+                    r = (hotel.getRateForRegular()*(noOfDays-week_end)) +(hotel.getRateForWeekends()*week_end);
+                    int ratingByRate = r/ hotel.getRatings();
+                    if(min<ratingByRate){
+                        min = r;
+                        htel = hotel.getName();
+                    }
+
+                }
+                TotalRate = min;
+                Stay.add(htel);
+                break;
 //                code will be implemented
 
 
