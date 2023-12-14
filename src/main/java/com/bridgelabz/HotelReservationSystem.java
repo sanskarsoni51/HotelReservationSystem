@@ -14,9 +14,9 @@ public class HotelReservationSystem {
 
         ArrayList<Hotels> hotelList = new ArrayList<>();
 
-        Hotels Lakewood = new Hotels("Lakewood", 110, 90, 3);
-        Hotels Bridgewood = new Hotels("Bridgewood", 150, 50, 4);
-        Hotels Ridgewood = new Hotels("Ridgewood", 220, 150, 5);
+        Hotels Lakewood = new Hotels("Lakewood", 110, 90, 3,80,80);
+        Hotels Bridgewood = new Hotels("Bridgewood", 150, 50, 4,50,110);
+        Hotels Ridgewood = new Hotels("Ridgewood", 220, 150, 5,40,100);
 
         hotelList.add(Lakewood);
         hotelList.add(Bridgewood);
@@ -65,44 +65,24 @@ public class HotelReservationSystem {
                 }
 
             case CheapestBestRated:
-//                HashMap<String, Integer> m = new HashMap<>();
-//                Integer Cheap_Rate = 0;
-//                for (int i = 0; i < noOfDays; i++) {
-//                    dateInput = s.nextLine();
-//                    // Parsing the user input date string and checking if it's a weekend
-//                    boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
-//                    for (Hotels hotel : hotelList) {
-//                        if (weekEnd) {
-//                            // Adding the rate of the selected hotel for weekends to the total rate
-//                            int rate = hotel.getRateForWeekends();
-//                            Cheap_Rate = Cheap_Rate + rate;
-//                        } else {
-//                            // Adding the rate of the selected hotel for regular days to the total rate
-//                            int rate = hotel.getRateForRegular();
-//                            Cheap_Rate = Cheap_Rate + rate;
-//                        }
-//                        m.put(hotel.getName(), Cheap_Rate);
-//                    }
-//
-//
-//                }
+//                code will be implemented
 
 
             case BestRated:
-                for (int i = 0; i <noOfDays; i++) {
+                for (int i = 0; i < noOfDays; i++) {
                     dateInput = s.nextLine();
                     // Parsing the user input date string and checking if it's a weekend
                     boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
 
                     // Choosing a hotel based on whether it's a weekend or not
-                    if(weekEnd){
+                    if (weekEnd) {
                         // Choosing the hotel with the best Rating for weekends
                         String h = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getName();
                         Stay.add(h);
                         // Adding the rate of the selected hotel for weekends to the total rate
                         int rate = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getRateForWeekends();
-                        TotalRate = TotalRate+rate;
-                    }else {
+                        TotalRate = TotalRate + rate;
+                    } else {
                         // Choosing the hotel with the Best Rating for regular days
                         String h = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getName();
                         Stay.add(h);
@@ -110,12 +90,14 @@ public class HotelReservationSystem {
                         int rate = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getRateForRegular();
                         TotalRate = TotalRate + rate;
                     }
+                }
         }
 
         for (String i : Stay) {
             System.out.print(i + " and ");
         }
         System.out.print("With Total rate $" + TotalRate);
+
     }
-    }}
+}
 

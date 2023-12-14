@@ -10,9 +10,17 @@ public class Hotels {
 
     private int Ratings;
 
-//    private int rateForRewardCustomerWeekends;
+    private int rateForRewardCustomerWeekends;
+    private int rateForRewardCustomerRegular;
 
-//    private int rateForRewardCustomerRegular;
+    public Hotels(String name, int rateForRegular, int rateForWeekends, int ratings, int rateForRewardCustomerWeekends, int rateForRewardCustomerRegular) {
+        Name = name;
+        this.rateForRegular = rateForRegular;
+        this.rateForWeekends = rateForWeekends;
+        Ratings = ratings;
+        this.rateForRewardCustomerWeekends = rateForRewardCustomerWeekends;
+        this.rateForRewardCustomerRegular = rateForRewardCustomerRegular;
+    }
 
     @Override
     public String toString() {
@@ -21,14 +29,27 @@ public class Hotels {
                 ", rateForRegular=" + rateForRegular +
                 ", rateForWeekends=" + rateForWeekends +
                 ", Ratings=" + Ratings +
+                ", rateForRewardCustomerWeekends=" + rateForRewardCustomerWeekends +
+                ", rateForRewardCustomerRegular=" + rateForRewardCustomerRegular +
                 '}';
     }
 
-    public Hotels(String name, int rateForRegular, int rateForWeekends, int ratings) {
-        Name = name;
-        this.rateForRegular = rateForRegular;
-        this.rateForWeekends = rateForWeekends;
-        Ratings = ratings;
+
+
+    public int getRateForRewardCustomerWeekends() {
+        return rateForRewardCustomerWeekends;
+    }
+
+    public void setRateForRewardCustomerWeekends(int rateForRewardCustomerWeekends) {
+        this.rateForRewardCustomerWeekends = rateForRewardCustomerWeekends;
+    }
+
+    public int getRateForRewardCustomerRegular() {
+        return rateForRewardCustomerRegular;
+    }
+
+    public void setRateForRewardCustomerRegular(int rateForRewardCustomerRegular) {
+        this.rateForRewardCustomerRegular = rateForRewardCustomerRegular;
     }
 
     public int getRatings() {
