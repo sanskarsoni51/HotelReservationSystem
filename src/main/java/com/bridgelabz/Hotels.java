@@ -8,13 +8,31 @@ public class Hotels {
 
     private int rateForWeekends;
 
+    private int Ratings;
+
     @Override
     public String toString() {
         return "Hotels{" +
                 "Name='" + Name + '\'' +
                 ", rateForRegular=" + rateForRegular +
                 ", rateForWeekends=" + rateForWeekends +
+                ", Ratings=" + Ratings +
                 '}';
+    }
+
+    public Hotels(String name, int rateForRegular, int rateForWeekends, int ratings) {
+        Name = name;
+        this.rateForRegular = rateForRegular;
+        this.rateForWeekends = rateForWeekends;
+        Ratings = ratings;
+    }
+
+    public int getRatings() {
+        return Ratings;
+    }
+
+    public void setRatings(int ratings) {
+        Ratings = ratings;
     }
 
     public int getRateForWeekends() {
@@ -22,12 +40,6 @@ public class Hotels {
     }
 
     public void setRateForWeekends(int rateForWeekends) {
-        this.rateForWeekends = rateForWeekends;
-    }
-
-    public Hotels(String name, int rateForRegular, int rateForWeekends) {
-        Name = name;
-        this.rateForRegular = rateForRegular;
         this.rateForWeekends = rateForWeekends;
     }
 
