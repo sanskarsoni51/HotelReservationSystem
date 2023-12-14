@@ -11,6 +11,7 @@ public class HotelReservationSystem {
         final int CheapestHotels = 1;
         final int CheapestBestRated = 2;
         final int BestRated = 3;
+        final int CheapestBeatRatedForRewardCustomer = 4;
 
         System.out.println("Welcome to Hotel Reservation System");
 
@@ -31,7 +32,7 @@ public class HotelReservationSystem {
         Set<String> Stay = new HashSet<>();
 //        List<String> Stay = new Vector<String>();
         int TotalRate = 0;
-        System.out.println("1)Cheapest Hotels \n 2)Cheapest Hotel with best Rating \n 3)Best Rated Hotel");
+        System.out.println("1)Cheapest Hotels \n 2)Cheapest Hotel with best Rating \n 3)Best Rated Hotel \n 4)Cheapest Hotel with best Rating for Reward customer");
         int option = sc.nextInt();
 
         System.out.println("Enter number of days: ");
@@ -116,6 +117,33 @@ public class HotelReservationSystem {
                         TotalRate = TotalRate + rate;
                     }
                 }
+
+            case CheapestBeatRatedForRewardCustomer:
+                int WEnd = 0;
+                int price;
+                for (int i = 0; i < noOfDays; i++) {
+                    dateInput = s.nextLine();
+                    // Parsing the user input date string and checking if it's a weekend
+                    boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
+                    if(weekEnd) WEnd++;
+                }
+                int min1 =10000;
+                String htel1 = "";
+                for (Hotels hotel:hotelList) {
+
+                    price = (hotel.getRateForRewardCustomerRegular()*(noOfDays-WEnd)) +(hotel.getRateForRewardCustomerWeekends()*WEnd);
+                    int ratingByRate = price/ hotel.getRatings();
+                    if(min1>ratingByRate){
+                        min1 = price;
+                        htel1 = hotel.getName();
+                    }
+
+                }
+                TotalRate = min1;
+                Stay.add(htel1);
+                break;
+
+
         }
 
         for (String i : Stay) {
