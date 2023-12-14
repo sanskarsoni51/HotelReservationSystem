@@ -63,18 +63,59 @@ public class HotelReservationSystem {
                         TotalRate = TotalRate + rate;
                     }
                 }
-                break;
 
             case CheapestBestRated:
-//                Code to be implemented after discussion
+//                HashMap<String, Integer> m = new HashMap<>();
+//                Integer Cheap_Rate = 0;
+//                for (int i = 0; i < noOfDays; i++) {
+//                    dateInput = s.nextLine();
+//                    // Parsing the user input date string and checking if it's a weekend
+//                    boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
+//                    for (Hotels hotel : hotelList) {
+//                        if (weekEnd) {
+//                            // Adding the rate of the selected hotel for weekends to the total rate
+//                            int rate = hotel.getRateForWeekends();
+//                            Cheap_Rate = Cheap_Rate + rate;
+//                        } else {
+//                            // Adding the rate of the selected hotel for regular days to the total rate
+//                            int rate = hotel.getRateForRegular();
+//                            Cheap_Rate = Cheap_Rate + rate;
+//                        }
+//                        m.put(hotel.getName(), Cheap_Rate);
+//                    }
+//
+//
+//                }
 
 
+            case BestRated:
+                for (int i = 0; i <noOfDays; i++) {
+                    dateInput = s.nextLine();
+                    // Parsing the user input date string and checking if it's a weekend
+                    boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
+
+                    // Choosing a hotel based on whether it's a weekend or not
+                    if(weekEnd){
+                        // Choosing the hotel with the best Rating for weekends
+                        String h = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getName();
+                        Stay.add(h);
+                        // Adding the rate of the selected hotel for weekends to the total rate
+                        int rate = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getRateForWeekends();
+                        TotalRate = TotalRate+rate;
+                    }else {
+                        // Choosing the hotel with the Best Rating for regular days
+                        String h = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getName();
+                        Stay.add(h);
+                        // Adding the rate of the selected hotel for regular days to the total rate
+                        int rate = hotelList.stream().max(Comparator.comparing(Hotels::getRatings)).get().getRateForRegular();
+                        TotalRate = TotalRate + rate;
+                    }
         }
 
-        for (String i : Stay)
+        for (String i : Stay) {
             System.out.print(i + " and ");
-
+        }
         System.out.print("With Total rate $" + TotalRate);
     }
-}
+    }}
 
