@@ -10,6 +10,10 @@ public class Hotels {
 
     private int Ratings;
 
+//    private int rateForRewardCustomerWeekends;
+
+//    private int rateForRewardCustomerRegular;
+
     @Override
     public String toString() {
         return "Hotels{" +
