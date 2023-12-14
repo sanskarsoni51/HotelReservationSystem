@@ -6,9 +6,29 @@ public class Hotels {
 
     private int rateForRegular;
 
-    public Hotels(String name, int rateForRegular) {
+    private int rateForWeekends;
+
+    @Override
+    public String toString() {
+        return "Hotels{" +
+                "Name='" + Name + '\'' +
+                ", rateForRegular=" + rateForRegular +
+                ", rateForWeekends=" + rateForWeekends +
+                '}';
+    }
+
+    public int getRateForWeekends() {
+        return rateForWeekends;
+    }
+
+    public void setRateForWeekends(int rateForWeekends) {
+        this.rateForWeekends = rateForWeekends;
+    }
+
+    public Hotels(String name, int rateForRegular, int rateForWeekends) {
         Name = name;
         this.rateForRegular = rateForRegular;
+        this.rateForWeekends = rateForWeekends;
     }
 
     public String getName() {
@@ -27,11 +47,4 @@ public class Hotels {
         this.rateForRegular = rateForRegular;
     }
 
-    @Override
-    public String toString() {
-        return "Hotels{" +
-                "Name='" + Name + '\'' +
-                ", rateForRegular=" + rateForRegular +
-                '}';
-    }
 }
