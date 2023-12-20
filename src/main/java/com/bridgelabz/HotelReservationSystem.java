@@ -55,7 +55,7 @@ public class HotelReservationSystem {
         switch (option) {
 
             case CheapestHotels:
-                // Logic for selecting cheapest hotels based on weekdays or weekends
+                // Logic for selecting the cheapest hotels based on weekdays or weekends
                 for (int i = 0; i < noOfDays; i++) {
                     dateInput = s.nextLine();
                     // Parsing the user input date string and checking if it's a weekend
@@ -81,7 +81,7 @@ public class HotelReservationSystem {
                 break;
 
             case CheapestBestRated:
-                // Logic for selecting cheapest hotel with the best rating
+                // Logic for selecting the cheapest hotel with the best rating
                 int week_end = 0;
                 for (int i = 0; i < noOfDays; i++) {
                     dateInput = s.nextLine();
@@ -89,14 +89,14 @@ public class HotelReservationSystem {
                     boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
                     if (weekEnd) week_end++;
                 }
-                int min = 0;
+                int min = 10000;
                 String htel = "";
                 for (Hotels hotel : hotelList) {
                     // Calculate the total rate based on the hotel's rates and ratings
                     int r = (hotel.getRateForRegular() * (noOfDays - week_end)) + (hotel.getRateForWeekends() * week_end);
                     int ratingByRate = r / hotel.getRatings();
                     // Choose the hotel with the minimum rating-by-rate value
-                    if (min < ratingByRate) {
+                    if (min > ratingByRate) {
                         min = r;
                         htel = hotel.getName();
                     }
@@ -132,29 +132,34 @@ public class HotelReservationSystem {
                 break;
 
             case CheapestBeatRatedForRewardCustomer:
-                // Logic for selecting cheapest hotel with the best rating for reward customers
-                int WEnd = 0;
+                // Logic for selecting the cheapest hotel with the best rating for reward customers
+                int wend = 0;
+
                 for (int i = 0; i < noOfDays; i++) {
+                    // Assuming DateInput is a class with static methods IsWeekend and DateFormat
                     dateInput = s.nextLine();
-                    // Parsing the user input date string and checking if it's a weekend
                     boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
-                    if (weekEnd) WEnd++;
+                    if (weekEnd) wend++;
                 }
-                int min1 = 10000;
-                String htel1 = "";
-                for (Hotels hotel : hotelList) {
-                    // Calculate the total rate based on the hotel's rates and ratings for reward customers
-                    int price = (hotel.getRateForRewardCustomerRegular() * (noOfDays - WEnd)) + (hotel.getRateForRewardCustomerWeekends() * WEnd);
-                    int ratingByRate = price / hotel.getRatings();
-                    // Choose the hotel with the minimum rating-by-rate value
-                    if (min1 > ratingByRate) {
-                        min1 = price;
-                        htel1 = hotel.getName();
-                    }
+                final int WEnd = wend;
+                // Use streams to find the cheapest and best-rated hotel for reward customers
+                Hotels selectedHotel = hotelList.stream()
+                        .min(Comparator.comparingInt(hotel ->
+                                ((hotel.getRateForRewardCustomerRegular() * (noOfDays - WEnd)) +
+                                        (hotel.getRateForRewardCustomerWeekends() * WEnd)) / hotel.getRatings()))
+                        .orElse(null);
+
+                if (selectedHotel != null) {
+                    // Calculate the total rate based on the selected hotel's rates and ratings
+                    int totalRate = (selectedHotel.getRateForRewardCustomerRegular() * (noOfDays - WEnd)) +
+                            (selectedHotel.getRateForRewardCustomerWeekends() * WEnd);
+                    TotalRate = totalRate;
+
+                    // Do something with the selected hotel (e.g., store it in Stay list)
+                    Stay.add(selectedHotel.getName());
+                } else {
+                    // Handle the case when no hotel is found
                 }
-                TotalRate = min1;
-                Stay.add(htel1);
-                break;
         }
 
         // Display selected hotels and total rate
