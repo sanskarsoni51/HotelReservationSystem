@@ -89,20 +89,15 @@ public class HotelReservationSystem {
                     boolean weekEnd = DateInput.IsWeekend(DateInput.DateFormat(dateInput));
                     if (weekEnd) week_end++;
                 }
-                int min = 10000;
-                String htel = "";
-                for (Hotels hotel : hotelList) {
-                    // Calculate the total rate based on the hotel's rates and ratings
-                    int r = (hotel.getRateForRegular() * (noOfDays - week_end)) + (hotel.getRateForWeekends() * week_end);
-                    int ratingByRate = r / hotel.getRatings();
-                    // Choose the hotel with the minimum rating-by-rate value
-                    if (min > ratingByRate) {
-                        min = r;
-                        htel = hotel.getName();
-                    }
-                }
-                TotalRate = min;
-                Stay.add(htel);
+                final int W = week_end;
+                Hotels htel = hotelList.stream()
+                        .min(Comparator.comparingInt(hotel ->
+                                        ((hotel.getRateForRegular() * (noOfDays - W)) +
+                                        (hotel.getRateForWeekends() * W)) / hotel.getRatings()))
+                        .orElse(null);
+                TotalRate = ((htel.getRateForRegular() * (noOfDays - W)) +
+                        (htel.getRateForWeekends() * W));
+                Stay.add(htel.getName());
                 break;
 
             case BestRated:
@@ -160,6 +155,7 @@ public class HotelReservationSystem {
                 } else {
                     // Handle the case when no hotel is found
                 }
+                break;
         }
 
         // Display selected hotels and total rate
@@ -168,3 +164,4 @@ public class HotelReservationSystem {
         }
         System.out.print("With Total rate $" + TotalRate);
     }
+}
