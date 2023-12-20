@@ -168,6 +168,3 @@ public class HotelReservationSystem {
         }
         System.out.print("With Total rate $" + TotalRate);
     }
-}
-
-
